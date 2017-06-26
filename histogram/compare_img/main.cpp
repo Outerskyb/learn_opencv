@@ -10,27 +10,27 @@ using namespace std;
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 using namespace cv;
-//indentation change -> space 4
- 
-void		get_random_particles(Mat &img, vector<MatND> &ary) {
 
-	int					width				= img.cols / 20;
-	int					height				= img.rows / 20;
-	int					numbins				= 255;
-	const	 int		channel[]			= { 0,1,2 };
-	float				channel_range[]		= { 0.0, 255.0 };
-	const	 float*		channel_ranges		= channel_range;
+ 
+void       get_random_particles(Mat &img, vector<MatND> &ary) {
+
+	int                 width               = img.cols / 20;
+	int                 height              = img.rows / 20;
+	int                 numbins             = 255;
+	const    int        channel[]           = { 0,1,2 };
+	float               channel_range[]     = { 0.0, 255.0 };
+	const    float*     channel_ranges      = channel_range;
 
 	for (int i = 0;	i < 2000; i++)
 	{
-		int				x					= rand() % (img.cols-width-1);
-		int				y					= rand() % (img.rows-height-1);
-		Rect			rect(x, y, width, height);
-		Mat				part				= img(rect);
-		MatND			b_histo;
-		MatND			g_histo;
-		MatND			r_histo;
-		vector<Mat>		bgr;
+		int             x                   = rand() % (img.cols-width-1);
+		int             y                   = rand() % (img.rows-height-1);
+		Rect            rect(x, y, width, height);
+		Mat             part                = img(rect);
+		MatND           b_histo;
+		MatND           g_histo;
+		MatND           r_histo;
+		vector<Mat>     bgr;
 
 		split(part, bgr);
 
@@ -44,9 +44,9 @@ void		get_random_particles(Mat &img, vector<MatND> &ary) {
 	}
 }
 
-double		get_distance(vector<MatND> &ori, vector<MatND> &comp)
+double      get_distance(vector<MatND> &ori, vector<MatND> &comp)
 {
-	double		sum_of_distance			= 0.0;
+	double      sum_of_distance      = 0.0;
 
 	for (int i = 0; i < ori.size(); i++) 
 	{
@@ -59,24 +59,24 @@ double		get_distance(vector<MatND> &ori, vector<MatND> &comp)
 int			main(int argc, const char** argv)
 {
 	// Read images
-	Mat				mountain			= imread("./mountain.jpg");	
-	Mat				sky					= imread("./sky.jpg");
-	Mat				desert				= imread("./desert.jpg");
-	Mat				compare				= imread("./compare.jpg");
-	vector<MatND>	mountain_image;
-	vector<MatND>	sky_image;
-	vector<MatND>	desert_image;
-	vector<MatND>	compared_image;
+	Mat             mountain            = imread("./mountain.jpg");	
+	Mat             sky                 = imread("./sky.jpg");
+	Mat             desert              = imread("./desert.jpg");
+	Mat             compare             = imread("./compare.jpg");
+	vector<MatND>   mountain_image;
+	vector<MatND>   sky_image;
+	vector<MatND>   desert_image;
+	vector<MatND>   compared_image;
 	// Get same pixel with opencv function
 	get_random_particles(mountain, mountain_image);
 	get_random_particles(sky, sky_image);
 	get_random_particles(desert, desert_image);
 	get_random_particles(compare, compared_image);
 
-	double			sim_mnt				= get_distance(mountain_image, compared_image);
-	double			sim_sky				= get_distance(sky_image, compared_image);
-	double			sim_dsrt			= get_distance(desert_image, compared_image);
-	double			sim_max				= MAX(sim_dsrt,MAX(sim_mnt, sim_sky));
+	double          sim_mnt             = get_distance(mountain_image, compared_image);
+	double          sim_sky             = get_distance(sky_image, compared_image);
+	double          sim_dsrt            = get_distance(desert_image, compared_image);
+	double          sim_max             = MAX(sim_dsrt,MAX(sim_mnt, sim_sky));
 
 	if (sim_max == sim_dsrt) {
 		printf("가장 유사도 높은 사진은 사막입니다.");
