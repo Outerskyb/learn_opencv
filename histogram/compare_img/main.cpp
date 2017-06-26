@@ -10,7 +10,7 @@ using namespace std;
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 using namespace cv;
-
+//indentation change -> space 4
  
 void		get_random_particles(Mat &img, vector<MatND> &ary) {
 
