@@ -22,25 +22,25 @@ void       get_random_particles(Mat &img, vector<MatND> &ary) {
 	const    float*     channel_ranges      = channel_range;
 
 	for (int i = 0;	i < 2000; i++)
-	{
-        int             x                   = rand() % (img.cols-width-1);
-        int             y                   = rand() % (img.rows-height-1);
-        Rect            rect(x, y, width, height);
-        Mat             part                = img(rect);
-        MatND           b_histo;
-        MatND           g_histo;
-        MatND           r_histo;
-        vector<Mat>     bgr;
+    {
+            int             x                   = rand() % (img.cols-width-1);
+            int             y                   = rand() % (img.rows-height-1);
+            Rect            rect(x, y, width, height);
+            Mat             part                = img(rect);
+            MatND           b_histo;
+            MatND           g_histo;
+            MatND           r_histo;
+            vector<Mat>     bgr;
 
-        split(part, bgr);
+            split(part, bgr);
 
-        calcHist(&bgr[0], 1, 0, Mat(), b_histo, 1, &numbins, &channel_ranges);
-        calcHist(&bgr[0], 1, 0, Mat(), g_histo, 1, &numbins, &channel_ranges);
-        calcHist(&bgr[0], 1, 0, Mat(), r_histo, 1, &numbins, &channel_ranges);
+            calcHist(&bgr[0], 1, 0, Mat(), b_histo, 1, &numbins, &channel_ranges);
+            calcHist(&bgr[0], 1, 0, Mat(), g_histo, 1, &numbins, &channel_ranges);
+            calcHist(&bgr[0], 1, 0, Mat(), r_histo, 1, &numbins, &channel_ranges);
 
-        ary.push_back(b_histo);
-        ary.push_back(g_histo);
-        ary.push_back(r_histo);
+            ary.push_back(b_histo);
+            ary.push_back(g_histo);
+            ary.push_back(r_histo);
 	}
 }
 
